@@ -1,0 +1,62 @@
+<p>ocr-with-crop!</p>
+<div class="card">
+    <div class="row" *ngIf="base64Image">
+        <div class="text-center col-md-6">
+            <div class="row" style="margin-top: 15px;">
+                <div class="text-center col-md-8"  *ngIf="imageChangedEvent">
+                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+                       [resizeToWidth]="256" format="png" (imageCropped)="imageCropped($event)">
+                    </image-cropper>
+                </div>
+            </div>
+        </div>
+        <div class="text-center col-md-6">
+            <h5>Preview</h5>
+            <img [src]="croppedImage" />
+             <button *ngIf="!isScanning" class="btn btn-primary" type="submit" (click)="scanOCR()">Scan</button>
+        </div>
+    </div>
+
+
+    <div class="card-body">
+        <form class="needs-validation" novalidate>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">First name</label>
+                    <input type="text" class="form-control" id="validationCustom01" placeholder="First name"
+                        value="Mark" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">Last name</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto"
+                        required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustomUsername">Scanned Code</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
+                        </div>
+                        <input type="text" class="form-control" id="validationCustomUsername" name="text"
+                            placeholder="text" disabled [(ngModel)]="ocrResult" aria-describedby="inputGroupPrepend"
+                            required>
+                        <div class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input id="fileInput" accept="image/*" type='file' (change)="handleFileInput($event)">
+
+            <button class="btn btn-primary" type="submit">Submit form</button>
+        </form>
+        <!-- {{ocrResult}} -->
+    </div>
+</div>
